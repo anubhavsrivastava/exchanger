@@ -1,3 +1,4 @@
+import { initialState } from "../reducers/sampleReducer";
 export default {
-    name: "sample",
+    sampleReducer: initialState,
 };
