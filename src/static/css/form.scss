@@ -1,0 +1,22 @@
+@import "./variables.scss";
+@import "./dropdown.scss";
+input[type="text"] {
+    text-align: right;
+    height: 48px;
+    background: transparent;
+    border: none;
+    outline: none;
+    transition: all 0.3s ease-out;
+    width: 200px;
+}
+
+.input-huge {
+    font-size: 32px;
+    font-weight: 300;
+}
+
+input,
+textarea,
+[contenteditable] {
+    caret-color: $primary;
+}

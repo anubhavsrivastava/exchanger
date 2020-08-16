@@ -1,7 +1,8 @@
 import React from "react";
-
+import CurrencyExchange from "./routes/CurrencyExchange";
+import "./static/css/main.scss";
 function App() {
-    return <div className="App">Basic App</div>;
+    return <CurrencyExchange />;
 }
 
 export default App;

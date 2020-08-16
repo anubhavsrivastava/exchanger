@@ -1,0 +1,34 @@
+@import "../../static/css/variables.scss";
+.panelSeperator {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-content: space-between;
+}
+
+.circleContainer {
+    height: 32px;
+    border-radius: 16px;
+    border: 2px solid $grey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    background: $white;
+    max-width: 70%;
+}
+
+.circleContainerSmall {
+    width: 32px;
+}
+
+.circleContainerLarge {
+    width: 100px;
+}
+
+.containerLeft {
+    position: absolute;
+    left: 20px;
+}

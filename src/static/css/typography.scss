@@ -1,0 +1,42 @@
+@import "./variables.scss";
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet"');
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: "Lato", sans-serif;
+    color: $black;
+    font-weight: 300;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: $black;
+}
+
+.text {
+    font-size: 14px;
+}
+
+.text-contained {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.text-primary {
+    color: $primary;
+}
+
+.text-grey {
+    color: $grey-tone-1;
+}
+
+.text-black {
+    color: $black;
+}

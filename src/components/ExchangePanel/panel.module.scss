@@ -1,0 +1,24 @@
+@import "../../static/css/variables.scss";
+
+.panel {
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.white-panel {
+    background-color: $white;
+}
+
+.grey-panel {
+    background-color: $grey;
+}
+
+.panelRow {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+}

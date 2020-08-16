@@ -1,0 +1,28 @@
+@import "../../../static/css/variables.scss";
+.default_app_layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 320px;
+    background-color: $white;
+    position: relative;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 20px;
+    h2 {
+        font-size: 1.2em;
+        font-weight: 400;
+    }
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    background: $grey;
+}
