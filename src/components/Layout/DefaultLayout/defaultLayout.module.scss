@@ -1,9 +1,12 @@
 @import "../../../static/css/variables.scss";
+.default_app_container {
+    min-width: 320px;
+    box-shadow: 12px 12px 0px rgba(240, 240, 240, 0.1), -12px -12px 24px $grey;
+}
 .default_app_layout {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-width: 320px;
     background-color: $white;
     position: relative;
 }
@@ -12,7 +15,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 10px 20px;
+    padding: 10px 20px;
     h2 {
         font-size: 1.2em;
         font-weight: 400;
