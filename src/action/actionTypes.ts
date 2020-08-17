@@ -1,0 +1,12 @@
+enum ExchangeRateActionTypes {
+    EXCHANGE_RATES_SUCCESS = "EXCHANGE_RATES_SUCCESS",
+    EXCHANGE_RATES_FAILURE = "EXCHANGE_RATES_FAILURE",
+}
+
+enum WalletActionTypes {
+    EXCHANGE_BEGIN = "EXCHANGE_BEGIN",
+    EXCHANGE_SUCCESS = "EXCHANGE_SUCCESS",
+    EXCHANGE_FAILURE = "EXCHANGE_FAILURE",
+}
+
+export { ExchangeRateActionTypes, WalletActionTypes };

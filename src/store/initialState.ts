@@ -1,4 +1,7 @@
-import { initialState } from "../reducers/sampleReducer";
+import { initialState as exchangeInitialState } from "../reducers/exchangeRateReducer";
+import { initialState as walletInitialState } from "../reducers/walletReducer";
+
 export default {
-    sampleReducer: initialState,
+    exchangeRate: exchangeInitialState,
+    walletDetails: walletInitialState,
 };

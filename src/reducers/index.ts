@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
-import sampleReducer from "./sampleReducer";
-
+import { exchangeRateReducer } from "./exchangeRateReducer";
+import { walletReducer } from "./walletReducer";
 export default combineReducers({
-    sampleReducer,
+    exchangeRate: exchangeRateReducer,
+    walletDetails: walletReducer,
 });
