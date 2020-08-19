@@ -1,13 +1,11 @@
 import React, { FC } from "react";
-import Dropdown, { Option } from "react-dropdown";
+import Dropdown from "react-dropdown";
 import panelStyles from "./panel.module.scss";
+import classnames from "classnames";
 
 type Props = {
     color?: "white" | "grey";
     currencies?: any[]; //todo
-
-    // onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
-    // type?: "button" | "submit" | "reset";
     [key: string]: any;
 };
 
@@ -24,7 +22,10 @@ const ExchangePanel: FC<Props> = ({
         currentCurrency === undefined ? options[0] : currentCurrency;
     return (
         <div
-            className={`${panelStyles.panel} ${panelStyles[`${color}-panel`]}`}
+            className={classnames(
+                panelStyles.panel,
+                panelStyles[`${color}-panel`]
+            )}
         >
             <div className={panelStyles.panelRow}>
                 <Dropdown
@@ -43,7 +44,13 @@ const ExchangePanel: FC<Props> = ({
                     className="input-huge"
                 />
             </div>
-            <div className={`text-grey text ${panelStyles.panelRow}`}>
+            <div
+                className={classnames(
+                    "text",
+                    "text-grey",
+                    panelStyles.panelRow
+                )}
+            >
                 {`Balance: ${currentBalance} ${currentCurrency}`}
             </div>
         </div>

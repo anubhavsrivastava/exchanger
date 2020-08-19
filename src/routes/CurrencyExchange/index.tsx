@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import classnames from "classnames";
 import DefaultLayout from "../../components/Layout/DefaultLayout";
 import Button from "../../components/Button";
 import ExchangePanel from "../../components/ExchangePanel";
@@ -10,7 +11,7 @@ import { WalletState } from "../../reducers/walletReducer";
 import { ExchangeRateState } from "../../reducers/exchangeRateReducer";
 import { Currency } from "../../models/currency";
 import { executeWalletTransaction } from "../../actions/walletActions";
-import { fetchExchangeRates } from "../../actions/ExchangeRateAction";
+import { fetchExchangeRates } from "../../actions/exchangeRateActions";
 const options = ["EUR", "USD", "GBP"];
 class CurrencyExchange extends Component {
     state: { source: Currency; target: Currency };
@@ -18,8 +19,8 @@ class CurrencyExchange extends Component {
     constructor(props: any) {
         super(props);
         this.state = {
-            source: { code: "EUR", value: 0 },
-            target: { code: "USD", value: 0 },
+            source: { code: options[0], value: 0 },
+            target: { code: options[1], value: 0 },
         };
         this.onSourceChange = this.onSourceChange.bind(this);
         this.onTargetChange = this.onTargetChange.bind(this);
@@ -100,7 +101,12 @@ class CurrencyExchange extends Component {
                 />
                 <div className={exchangeStyles.panelSeperator}>
                     <div
-                        className={`${exchangeStyles.circleContainer} ${exchangeStyles.circleContainerSmall} ${exchangeStyles.containerLeft} ${exchangeStyles.circleContainerButton}`}
+                        className={classnames(
+                            exchangeStyles.circleContainer,
+                            exchangeStyles.circleContainerSmall,
+                            exchangeStyles.containerLeft,
+                            exchangeStyles.circleContainerButton
+                        )}
                     >
                         <img
                             onClick={this.onSwitch}
@@ -110,13 +116,18 @@ class CurrencyExchange extends Component {
                     </div>
                     <div className={exchangeStyles.circleContainer}>
                         <img src={trendIcon} alt="rate" />
-                        <span className="text text-contained text-primary">
+                        <span
+                            className={classnames(
+                                "text",
+                                "text-contained",
+                                "text-primary"
+                            )}
+                        >
                             {`1 ${source.code} = ${exchangeRate.toFixed(2)} ${
                                 target.code
                             }`}
                         </span>
                     </div>
-                    {/* <div className={`${exchangeStyles.containerRight}`}></div> */}
                 </div>
                 <ExchangePanel
                     options={options}
