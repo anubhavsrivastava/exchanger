@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import Dropdown from "react-dropdown";
+import Dropdown, { Option } from "react-dropdown";
 import panelStyles from "./panel.module.scss";
 
 type Props = {
@@ -11,28 +11,40 @@ type Props = {
     [key: string]: any;
 };
 
-const ExchangePanel: FC<Props> = ({ color = "white" }) => {
-    const options = [
-        { value: "eur", label: "EUR" },
-        { value: "usd", label: "USD" },
-        { value: "sgd", label: "SGD" },
-    ];
-    const defaultOption = options[0];
+const ExchangePanel: FC<Props> = ({
+    color = "white",
+    options = [],
+    currentCurrency = undefined,
+    onCurrencyChange = () => {},
+    onAmountChange = () => {},
+    currentAmount = 0,
+    currentBalance = 0,
+}) => {
+    currentCurrency =
+        currentCurrency === undefined ? options[0] : currentCurrency;
     return (
         <div
             className={`${panelStyles.panel} ${panelStyles[`${color}-panel`]}`}
         >
             <div className={panelStyles.panelRow}>
                 <Dropdown
-                    className=""
                     options={options}
-                    value={defaultOption}
+                    value={currentCurrency}
                     placeholder="Select an option"
+                    onChange={({ value }): void => {
+                        onCurrencyChange(value);
+                    }}
                 />
-                <input type="text" placeholder="0" className="input-huge" />
+                <input
+                    onChange={(e) => onAmountChange(e.target.value)}
+                    type="text"
+                    value={currentAmount}
+                    placeholder="0"
+                    className="input-huge"
+                />
             </div>
             <div className={`text-grey text ${panelStyles.panelRow}`}>
-                Balance: 600 Eur
+                {`Balance: ${currentBalance} ${currentCurrency}`}
             </div>
         </div>
     );
