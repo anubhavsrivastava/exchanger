@@ -32,6 +32,13 @@
     cursor: pointer;
 }
 
+.circleContainerContent {
+    font-size: 14px;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: $primary;
+}
+
 .containerLeft {
     position: absolute;
     left: 20px;

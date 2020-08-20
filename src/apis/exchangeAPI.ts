@@ -5,10 +5,11 @@ const getExchangeRates = (
     base: string,
     targets?: string[]
 ): Promise<AxiosResponse> => {
+    const targetParam = targets?.filter((t) => t !== base).join(",");
     return apiHandler.get("/latest", {
         params: {
             base,
-            symbols: targets?.join(","),
+            symbols: targetParam,
         },
     });
 };

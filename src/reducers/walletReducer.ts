@@ -16,7 +16,7 @@ export const initialState: WalletState = {
     wallet: {
         EUR: { code: "EUR", value: 1000 },
         GBP: { code: "GBP", value: 500 },
-        USD: { code: "USD", value: 1000 },
+        USD: { code: "USD", value: 800 },
     },
     inProgress: false,
 };
@@ -30,19 +30,19 @@ export const walletReducer = (
             const { sourceCurrency, targetCurrency } = action.payload;
             const { wallet } = state;
 
+            const sourceWalletAmount =
+                wallet[sourceCurrency.code].value - sourceCurrency.value;
+            const targetWalletAmount =
+                wallet[targetCurrency.code].value + targetCurrency.value;
             const updatedWallet = {
                 ...wallet,
                 [sourceCurrency.code]: {
                     code: sourceCurrency.code,
-                    value:
-                        wallet[sourceCurrency.code].value -
-                        sourceCurrency.value,
+                    value: +sourceWalletAmount.toFixed(2),
                 },
                 [targetCurrency.code]: {
                     code: targetCurrency.code,
-                    value:
-                        wallet[targetCurrency.code].value +
-                        +targetCurrency.value,
+                    value: +targetWalletAmount.toFixed(2),
                 },
             };
             return {

@@ -24,7 +24,11 @@ const exchangeRateReducer = (
         case ExchangeRateActionTypes.EXCHANGE_RATES_BEGIN:
             return { ...state, isLoading: true };
         case ExchangeRateActionTypes.EXCHANGE_RATES_SUCCESS:
-            return { ...state, isLoading: false, rates: action.payload };
+            return {
+                ...state,
+                isLoading: false,
+                rates: { ...state.rates, ...action.payload },
+            };
         case ExchangeRateActionTypes.EXCHANGE_RATES_FAILURE:
             return {
                 ...state,

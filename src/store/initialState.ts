@@ -1,7 +1,21 @@
-import { initialState as exchangeInitialState } from "../reducers/exchangeRateReducer";
-import { initialState as walletInitialState } from "../reducers/walletReducer";
+import {
+    initialState as exchangeInitialState,
+    ExchangeRateState,
+} from "../reducers/exchangeRateReducer";
 
-export default {
+import {
+    initialState as walletInitialState,
+    WalletState,
+} from "../reducers/walletReducer";
+
+export type StoreState = {
+    exchangeRate: ExchangeRateState;
+    walletDetails: WalletState;
+};
+
+const initialState: StoreState = {
     exchangeRate: exchangeInitialState,
     walletDetails: walletInitialState,
 };
+
+export default initialState;

@@ -2,6 +2,7 @@ import { createStore, compose, applyMiddleware } from "redux";
 import rootReducer from "../reducers";
 import thunk from "redux-thunk";
 import initialState from "./initialState";
+
 let composeEnhancers = compose;
 
 if (process.env.REACT_APP_ENABLE_DEVTOOLS === "true") {
