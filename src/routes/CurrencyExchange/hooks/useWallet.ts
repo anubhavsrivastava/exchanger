@@ -9,8 +9,13 @@ const useWallet = () => {
         shallowEqual
     );
 
+    const getWalletBalance = (currency: string): number => {
+        return wallet[currency] ? wallet[currency].value : 0;
+    };
+
     return {
         wallet,
+        getWalletBalance,
     };
 };
 

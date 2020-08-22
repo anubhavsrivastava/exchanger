@@ -33,7 +33,8 @@ export const walletReducer = (
             const sourceWalletAmount =
                 wallet[sourceCurrency.code].value - sourceCurrency.value;
             const targetWalletAmount =
-                wallet[targetCurrency.code].value + targetCurrency.value;
+                (wallet[targetCurrency.code]?.value || 0) +
+                targetCurrency.value;
             const updatedWallet = {
                 ...wallet,
                 [sourceCurrency.code]: {

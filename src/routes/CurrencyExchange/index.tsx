@@ -12,13 +12,15 @@ import useWallet from "./hooks/useWallet";
 import useCurrencyExchange from "./hooks/useCurrencyExchange";
 import RateIndicator from "../../components/Indicator";
 
-const EXCHANGE_RATE_UPDATE_INTERVAL: number = 5000;
+const EXCHANGE_RATE_UPDATE_INTERVAL = +process.env
+    .REACT_APP_EXCHANGE_RATE_UPDATE_INTERVAL;
 
 const currencies = ["EUR", "USD", "GBP"];
-const defaultCurrency = "EUR";
+const defaultCurrency = currencies[0];
+
 const CurrencyExchange: FC = () => {
     const dispatch = useDispatch();
-    const { wallet } = useWallet();
+    const { getWalletBalance } = useWallet();
     const {
         source,
         target,
@@ -60,11 +62,11 @@ const CurrencyExchange: FC = () => {
     };
 
     const isExchangeAvailable =
-        source.value <= wallet[source.code].value && canExchangeCurrency();
+        source.value <= getWalletBalance(source.code) && canExchangeCurrency();
 
     return (
         <DefaultLayout
-            header={<h2>Currency Exchange</h2>}
+            header={<h2>Exchange Point</h2>}
             footer={
                 <Button
                     disabled={!isExchangeAvailable}
@@ -81,7 +83,7 @@ const CurrencyExchange: FC = () => {
                 onAmountChange={updateSourceAmount}
                 autoFocus={true}
                 onCurrencyChange={updateSourceCurrency}
-                currentBalance={wallet[source.code].value}
+                currentBalance={getWalletBalance(source.code)}
                 warnBalance={true}
                 prefix="plus"
             />
@@ -108,7 +110,7 @@ const CurrencyExchange: FC = () => {
                 options={currencies}
                 currentCurrency={target.code}
                 currentAmount={target.value}
-                currentBalance={wallet[target.code].value}
+                currentBalance={getWalletBalance(target.code)}
                 onAmountChange={updateTargetAmount}
                 onCurrencyChange={updateTargetCurrency}
                 color="grey"
@@ -117,136 +119,5 @@ const CurrencyExchange: FC = () => {
         </DefaultLayout>
     );
 };
-// class CurrencyExchange extends Component {
-//     state: { source: Currency; target: Currency };
-//     props: any;
-//     constructor(props: any) {
-//         super(props);
-//         this.state = {
-//             source: { code: options[0], value: 0 },
-//             target: { code: options[1], value: 0 },
-//         };
-//         this.onSourceChange = this.onSourceChange.bind(this);
-//         this.onTargetChange = this.onTargetChange.bind(this);
-//         this.onSwitch = this.onSwitch.bind(this);
-//         this.onAmountChange = this.onAmountChange.bind(this);
-//         this.onExchange = this.onExchange.bind(this);
-//     }
-//     componentDidMount() {
-//         this.props.getExchangeRates("EUR", options);
-//     }
-
-//     onSourceChange = (newSource: string) => {
-//         this.setState({ source: { ...this.state.source, code: newSource } });
-//     };
-
-//     onTargetChange = (newTarget: string) => {
-//         this.setState({ target: { ...this.state.target, code: newTarget } });
-//     };
-
-//     onAmountChange = (type: "source" | "target", amount: number) => {
-//         const { rates } = this.props;
-//         const { source, target } = this.state;
-//         const exchangeRate = rates[target.code] / rates[source.code];
-
-//         if (type === "source") {
-//             this.setState({
-//                 target: { ...this.state.target, value: amount * exchangeRate },
-//             });
-//         } else {
-//             this.setState({
-//                 source: {
-//                     ...this.state.source,
-//                     value: (amount * 1) / exchangeRate,
-//                 },
-//             });
-//         }
-//         this.setState({ [type]: { ...this.state[type], value: amount } });
-//     };
-
-//     onSwitch = () => {
-//         this.setState({ target: this.state.source, source: this.state.target });
-//     };
-
-//     onExchange = (source: Currency, targetCode: string) => {
-//         const { executeWalletTransaction, rates } = this.props;
-//         const exchangeRate = rates[targetCode] / rates[source.code];
-
-//         executeWalletTransaction(source, {
-//             code: targetCode,
-//             value: source.value * exchangeRate,
-//         });
-//     };
-
-//     render() {
-//         const { wallet, rates } = this.props;
-//         const { source, target } = this.state;
-//         const exchangeRate = rates[target.code] / rates[source.code];
-//         return (
-//             <DefaultLayout
-//                 header={<h2>Currency Exchange</h2>}
-//                 footer={
-//                     <Button
-//                         onClick={() => this.onExchange(source, target.code)}
-//                     >
-//                         Exchange
-//                     </Button>
-//                 }
-//             >
-//                 <ExchangePanel
-//                     options={options}
-//                     currentCurrency={source.code}
-//                     onCurrencyChange={this.onSourceChange}
-//                     onAmountChange={(value: number) =>
-//                         this.onAmountChange("source", value)
-//                     }
-//                     currentAmount={source.value}
-//                     currentBalance={wallet[source.code].value}
-//                 />
-//                 <div className={exchangeStyles.panelSeperator}>
-//                     <div
-//                         className={classnames(
-//                             exchangeStyles.circleContainer,
-//                             exchangeStyles.circleContainerSmall,
-//                             exchangeStyles.containerLeft,
-//                             exchangeStyles.circleContainerButton
-//                         )}
-//                     >
-//                         <img
-//                             onClick={this.onSwitch}
-//                             src={swapIcon}
-//                             alt="Switch Currency"
-//                         />
-//                     </div>
-//                     <div className={exchangeStyles.circleContainer}>
-//                         <img src={trendIcon} alt="rate" />
-//                         <span
-//                             className={classnames(
-//                                 "text",
-//                                 "text-contained",
-//                                 "text-primary"
-//                             )}
-//                         >
-//                             {`1 ${source.code} = ${exchangeRate.toFixed(2)} ${
-//                                 target.code
-//                             }`}
-//                         </span>
-//                     </div>
-//                 </div>
-//                 <ExchangePanel
-//                     options={options}
-//                     currentCurrency={target.code}
-//                     onCurrencyChange={this.onTargetChange}
-//                     onAmountChange={(value: number) =>
-//                         this.onAmountChange("target", value)
-//                     }
-//                     currentAmount={target.value}
-//                     currentBalance={wallet[target.code].value}
-//                     color="grey"
-//                 />
-//             </DefaultLayout>
-//         );
-//     }
-// }
 
 export default CurrencyExchange;
