@@ -5,15 +5,14 @@ import Button from "../../components/Button";
 import ExchangePanel from "../../components/ExchangePanel";
 import exchangeStyles from "./exchange.module.scss";
 import swapIcon from "../../static/images/swap.svg";
-import trendIcon from "../../static/images/spike.svg";
 import { useDispatch } from "react-redux";
 import { executeWalletTransaction } from "../../actions/walletActions";
 import { fetchExchangeRates } from "../../actions/exchangeRateActions";
 import useWallet from "./hooks/useWallet";
 import useCurrencyExchange from "./hooks/useCurrencyExchange";
+import RateIndicator from "../../components/Indicator";
 
-const EXCHANGE_RATE_UPDATE_INTERVAL: number = +process.env
-    .REACT_APP_EXCHANGE_RATE_UPDATE_INTERVAL;
+const EXCHANGE_RATE_UPDATE_INTERVAL: number = 5000;
 
 const currencies = ["EUR", "USD", "GBP"];
 const defaultCurrency = "EUR";
@@ -39,7 +38,7 @@ const CurrencyExchange: FC = () => {
         dispatch(fetchExchangeRates(defaultCurrency, currencies));
 
         const handleID = setInterval(() => {
-            // dispatch(fetchExchangeRates(defaultOption, options));
+            dispatch(fetchExchangeRates(defaultCurrency, currencies));
         }, EXCHANGE_RATE_UPDATE_INTERVAL);
 
         return () => {
@@ -98,14 +97,12 @@ const CurrencyExchange: FC = () => {
                 >
                     <img src={swapIcon} alt="Switch Currency" />
                 </div>
-                <div className={exchangeStyles.circleContainer}>
-                    <img src={trendIcon} alt="rate" />
-                    <span className={exchangeStyles.circleContainerContent}>
-                        {`1 ${source.code} = ${exchangeRate.toFixed(2)} ${
-                            target.code
-                        }`}
-                    </span>
-                </div>
+                <RateIndicator
+                    source={source}
+                    target={target}
+                    exchangeRate={exchangeRate}
+                    rootClass={`${exchangeStyles.circleContainer}`}
+                />
             </div>
             <ExchangePanel
                 options={currencies}

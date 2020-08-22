@@ -3,12 +3,12 @@ import Dropdown from "react-dropdown";
 import panelStyles from "./panel.module.scss";
 import classnames from "classnames";
 
-type Props = {
+interface Props {
     color?: "white" | "grey";
     autoFocus?: boolean;
     currencies?: any[]; //todo
     [key: string]: any;
-};
+}
 
 const IS_POSITIVE_NUMBER_REGEX = new RegExp(/^\d*\.?\d{0,2}$/);
 

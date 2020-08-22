@@ -27,6 +27,8 @@ const useCurrencyExchange = ({
         value: 0,
     });
 
+    const [lastEditedInput, updatedLastEdited] = useState("source");
+
     const getExchangeAmount = function (
         fromCurrency: Currency,
         toCurrency: Currency,
@@ -35,7 +37,7 @@ const useCurrencyExchange = ({
         const fromRate = rates[toCurrency.code];
         const toRate = rates[fromCurrency.code];
         if (!fromRate || !toRate) {
-            return -1;
+            return 0;
         }
 
         const exchangePrice = (amount * (toRate / fromRate)).toFixed(2);
@@ -52,12 +54,14 @@ const useCurrencyExchange = ({
         const exchangeRate = getExchangeAmount(target, source, amount);
         updateSource({ ...source, value: amount });
         updateTarget({ ...target, value: exchangeRate });
+        updatedLastEdited("source");
     };
 
     const updateTargetAmount = (amount: number) => {
         const exchangeRate = getExchangeAmount(source, target, amount);
         updateSource({ ...source, value: exchangeRate });
         updateTarget({ ...target, value: amount });
+        updatedLastEdited("target");
     };
 
     const updateSourceCurrency = (code: string) => {
@@ -81,8 +85,17 @@ const useCurrencyExchange = ({
     };
 
     const canExchangeCurrency = (): boolean => {
-        return source.code !== target.code && source.value > 0;
+        return (
+            source.code !== target.code && source.value > 0 && target.value > 0
+        );
     };
+
+    if (lastEditedInput === "source") {
+        target.value = getExchangeAmount(target, source, source.value);
+    }
+    if (lastEditedInput === "target") {
+        source.value = getExchangeAmount(source, target, target.value);
+    }
 
     return {
         rates,

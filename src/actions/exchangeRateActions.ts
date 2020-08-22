@@ -2,6 +2,7 @@ import { ExchangeRateActionTypes } from "./actionTypes";
 import { ThunkDispatch } from "redux-thunk";
 import { Action } from "redux";
 import { getExchangeRates } from "../apis/exchangeAPI";
+import cogoToast from "cogo-toast";
 
 export const fetchExchangeRates = (
     baseCurrency: string,
@@ -19,8 +20,12 @@ export const fetchExchangeRates = (
             });
             return response;
         } catch (error) {
+            cogoToast.error(
+                "Exchange Rates unavailable. Please try after sometime."
+            );
+
             dispatch({
-                type: ExchangeRateActionTypes.EXCHANGE_RATES_SUCCESS,
+                type: ExchangeRateActionTypes.EXCHANGE_RATES_FAILURE,
             });
         }
     };

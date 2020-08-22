@@ -1,35 +1,31 @@
-import React, { FC, memo } from "react";
-// import styles from "./styles.module.scss";
-// import { Currency } from "../Currency";
-// import { Icon as TradeIcon } from "shared/icons/trade";
-// import { CurrencyCode } from "models/pockets";
+import React, { FC } from "react";
+import indicatorStyles from "./indicator.module.scss";
+import { Currency } from "../../models/currency";
+import trendIcon from "../../static/images/spike.svg";
 
-// type Props = {
-//     fromCurrency: CurrencyCode;
-//     toCurrency: CurrencyCode;
-//     conversionRate: number;
-// };
+interface Props {
+    rootClass: string;
+    source: Currency;
+    target: Currency;
+    exchangeRate: number;
+}
 
-// const LiveRate: FC<Props> = memo(
-//     ({ fromCurrency, toCurrency, conversionRate }) => {
-//         return (
-//             <div className={styles.container}>
-//                 <TradeIcon className={styles.icon} />
-//                 <Currency
-//                     currency={fromCurrency}
-//                     amount={1}
-//                     precision={0}
-//                     qaIdPrefix="from-currency"
-//                 />
-//                 <span>{" = "}</span>
-//                 <Currency
-//                     currency={toCurrency}
-//                     amount={conversionRate}
-//                     precision={4}
-//                     qaIdPrefix="to-currency"
-//                 />
-//             </div>
-//         );
-//     }
-// );
-// export { LiveRate };
+const RateIndicator: FC<Props> = ({
+    rootClass,
+    source,
+    target,
+    exchangeRate,
+}: Props) => (
+    <div className={rootClass}>
+        <img src={trendIcon} alt="rate" />
+        <span className={indicatorStyles.rateContent}>
+            {exchangeRate === 0
+                ? "Fetching Rate..."
+                : `1 ${source.code} = ${exchangeRate.toFixed(2)} ${
+                      target.code
+                  }`}
+        </span>
+    </div>
+);
+
+export default RateIndicator;
