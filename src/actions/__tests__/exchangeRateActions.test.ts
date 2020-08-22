@@ -3,7 +3,6 @@ import configureMockStore, { MockStore } from "redux-mock-store";
 import reduxThunk from "redux-thunk";
 import moxios from "moxios";
 import { AnyAction } from "redux";
-import { Currency } from "../../models/currency";
 import { fetchExchangeRates } from "../exchangeRateActions";
 const middlewares = [reduxThunk];
 const mockStore = configureMockStore(middlewares);
@@ -22,7 +21,6 @@ describe("exchangeRate Actions", () => {
     it("dispatches EXCHANGE_RATES_SUCCESS after successful fetching rates", () => {
         const exchangeRatesData = {
             rates: { USD: 1.1769, GBP: 0.89755 },
-            base: "EUR",
         };
         moxios.stubRequest(/latest.*/, {
             status: 200,
