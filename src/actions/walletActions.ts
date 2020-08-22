@@ -11,9 +11,11 @@ export const executeWalletTransaction = (
     try {
         dispatch({
             type: WalletActionTypes.EXCHANGE_BEGIN,
+        });
+        dispatch({
+            type: WalletActionTypes.EXCHANGE_SUCCESS,
             payload: { sourceCurrency, targetCurrency },
         });
-        dispatch({ type: WalletActionTypes.EXCHANGE_SUCCESS });
         cogoToast.success("Wallet updated successfully.");
     } catch (error) {
         dispatch({ type: WalletActionTypes.EXCHANGE_FAILURE });

@@ -16,10 +16,10 @@ describe("wallet Actions", () => {
         const expectedActions = [
             {
                 type: WalletActionTypes.EXCHANGE_BEGIN,
-                payload: { sourceCurrency, targetCurrency },
             },
             {
                 type: WalletActionTypes.EXCHANGE_SUCCESS,
+                payload: { sourceCurrency, targetCurrency },
             },
         ];
 

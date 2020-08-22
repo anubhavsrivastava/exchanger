@@ -18,7 +18,7 @@ export const initialState: ExchangeRateState = {
 
 const exchangeRateReducer = (
     state = initialState,
-    action: { type: ExchangeRateActionTypes; payload: Rate }
+    action: { type: ExchangeRateActionTypes | null; payload?: Rate | null }
 ): ExchangeRateState => {
     switch (action?.type) {
         case ExchangeRateActionTypes.EXCHANGE_RATES_BEGIN:

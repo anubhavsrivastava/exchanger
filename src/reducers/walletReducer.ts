@@ -5,11 +5,16 @@ import { Currency } from "../models/currency";
 export type WalletState = {
     wallet: Wallet;
     inProgress: boolean;
+    error: string;
 };
 
 export type TransactionPayload = {
     sourceCurrency: Currency;
     targetCurrency: Currency;
+};
+
+export type ErrorPayload = {
+    error: string;
 };
 
 export const initialState: WalletState = {
@@ -19,15 +24,27 @@ export const initialState: WalletState = {
         USD: { code: "USD", value: 800 },
     },
     inProgress: false,
+    error: "",
 };
 
 export const walletReducer = (
     state = initialState,
-    action: { type: WalletActionTypes; payload: TransactionPayload }
+    action: {
+        type: WalletActionTypes | null;
+        payload?: TransactionPayload | ErrorPayload;
+    }
 ): WalletState => {
     switch (action?.type) {
         case WalletActionTypes.EXCHANGE_BEGIN:
-            const { sourceCurrency, targetCurrency } = action.payload;
+            return {
+                ...state,
+                inProgress: true,
+            };
+        case WalletActionTypes.EXCHANGE_SUCCESS:
+            const {
+                sourceCurrency,
+                targetCurrency,
+            } = action.payload as TransactionPayload;
             const { wallet } = state;
 
             const sourceWalletAmount =
@@ -48,18 +65,15 @@ export const walletReducer = (
             };
             return {
                 ...state,
-                inProgress: true,
+                inProgress: false,
                 wallet: updatedWallet,
             };
-        case WalletActionTypes.EXCHANGE_SUCCESS:
-            return {
-                ...state,
-                inProgress: false,
-            };
         case WalletActionTypes.EXCHANGE_FAILURE:
+            const { error } = action.payload as ErrorPayload;
             return {
                 ...state,
                 inProgress: false,
+                error,
             };
         default:
             return state;
