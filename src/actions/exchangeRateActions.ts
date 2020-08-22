@@ -7,26 +7,23 @@ import cogoToast from "cogo-toast";
 export const fetchExchangeRates = (
     baseCurrency: string,
     targets?: string[]
-) => {
-    return async (dispatch: ThunkDispatch<{}, {}, Action>) => {
+) => async (dispatch: ThunkDispatch<{}, {}, Action>) => {
+    dispatch({
+        type: ExchangeRateActionTypes.EXCHANGE_RATES_BEGIN,
+    });
+    try {
+        const response = await getExchangeRates(baseCurrency, targets);
         dispatch({
-            type: ExchangeRateActionTypes.EXCHANGE_RATES_BEGIN,
+            type: ExchangeRateActionTypes.EXCHANGE_RATES_SUCCESS,
+            payload: response.data.rates,
         });
-        try {
-            const response = await getExchangeRates(baseCurrency, targets);
-            dispatch({
-                type: ExchangeRateActionTypes.EXCHANGE_RATES_SUCCESS,
-                payload: response.data.rates,
-            });
-            return response;
-        } catch (error) {
-            cogoToast.error(
-                "Exchange Rates unavailable. Please try after sometime."
-            );
-
-            dispatch({
-                type: ExchangeRateActionTypes.EXCHANGE_RATES_FAILURE,
-            });
-        }
-    };
+        return response;
+    } catch (error) {
+        cogoToast.error(
+            "Exchange Rates unavailable. Please try after sometime."
+        );
+        dispatch({
+            type: ExchangeRateActionTypes.EXCHANGE_RATES_FAILURE,
+        });
+    }
 };
