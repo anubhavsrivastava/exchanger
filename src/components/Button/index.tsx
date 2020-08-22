@@ -6,7 +6,6 @@ type Props = {
     disabled?: boolean;
     onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
     type?: "button" | "submit" | "reset";
-    [key: string]: any;
 };
 
 const Button: FC<Props> = ({
