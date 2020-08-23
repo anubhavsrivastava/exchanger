@@ -59,6 +59,20 @@ describe("<ExchangePanel /> Component", () => {
         let input = container.querySelector("input") as HTMLInputElement;
         user.type(input, "10");
         expect(onAmountChange).toHaveBeenCalled();
-        // expect(input?.parentNode).toHaveAttribute("class", "prefixPlus");
+    });
+
+    it("renders a red label for balance if it exceed balance amount", () => {
+        const { container } = render(
+            <ExchangePanel
+                currentAmount={15}
+                currentBalance={5}
+                currentCurrency={"EUR"}
+                options={["EUR", "USD"]}
+                warnBalance={true}
+            />
+        );
+
+        let balance = container.querySelector(".panelText");
+        expect(balance).toHaveClass("panelTextWarn");
     });
 });
