@@ -14,7 +14,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 -   APP support User Wallet with GBP, EUR and USD as default Wallets. Currently, it is part of code but in production apps, this information can be fetched from API.
 -   A Currency exchange is possible between Wallets of the user based on current exchange rates
--   The exchange rate are fetched from third party - https://api.exchangeratesapi.io for local development (free, not rate limited) and https://api.exchangerate.host for live demo(rate limited to 200 req/hour). Both APIS fetch rates from [Euro Central Bank)(http://www.ecb.int/stats/exchange/eurofxref/html/index.en.html#dev). Exchange rate is updated every 10 seconds to let user exchange currencies at almost live rate.
+-   The exchange rate are fetched from third party - https://api.exchangeratesapi.io for local development (free, not rate limited) and https://api.exchangerate.host for live demo(rate limited to 200 req/hour). Both APIS fetch rates from [Euro Central Bank](http://www.ecb.int/stats/exchange/eurofxref/html/index.en.html#dev). Exchange rate is updated every 10 seconds to let user exchange currencies at almost live rate.
 
 ## Installation and running
 
