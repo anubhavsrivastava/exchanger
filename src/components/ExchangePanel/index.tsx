@@ -4,25 +4,32 @@ import panelStyles from "./panel.module.scss";
 import classnames from "classnames";
 
 interface Props {
+    options: string[];
+    currentCurrency: string;
+    currentBalance?: number;
+    currentAmount?: number;
+    onCurrencyChange?: Function;
+    onAmountChange?: Function;
+    maxValue?: number;
+    warnBalance?: boolean;
+    prefix?: "minus" | "plus";
     color?: "white" | "grey";
     autoFocus?: boolean;
-    currencies?: any[]; //todo
-    [key: string]: any;
 }
 
 const IS_POSITIVE_NUMBER_REGEX = new RegExp(/^\d*\.?\d{0,2}$/);
 
 const ExchangePanel: FC<Props> = ({
-    autoFocus,
+    options,
+    currentCurrency,
     color = "white",
-    options = [],
-    currentCurrency = undefined,
     onCurrencyChange = () => {},
     onAmountChange = () => {},
     currentAmount = 0,
     currentBalance = 0,
     maxValue = 10e6,
     warnBalance = false,
+    autoFocus = false,
     prefix,
 }) => {
     currentCurrency =

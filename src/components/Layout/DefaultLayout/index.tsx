@@ -3,7 +3,7 @@ import layoutStyles from "./defaultLayout.module.scss";
 
 type Props = {
     children: ReactNode;
-    header: ReactNode;
+    header?: ReactNode;
     footer?: ReactNode;
 };
 const DefaultLayout: FC<Props> = ({ header, children, footer = "" }) => {
