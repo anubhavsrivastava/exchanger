@@ -27,7 +27,7 @@ const ExchangePanel: FC<Props> = ({
     onAmountChange = () => {},
     currentAmount = 0,
     currentBalance = 0,
-    maxValue = 10e6,
+    maxValue = 10e5,
     warnBalance = false,
     autoFocus = false,
     prefix,
