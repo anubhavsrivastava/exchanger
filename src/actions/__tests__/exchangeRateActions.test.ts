@@ -48,10 +48,6 @@ describe("exchangeRate Actions", () => {
     });
 
     it("dispatches EXCHANGE_RATES_FAILURE if fetching rates is unsuccesful", () => {
-        const exchangeRatesData = {
-            rates: { USD: 1.1769, GBP: 0.89755 },
-            base: "EUR",
-        };
         moxios.stubRequest("/latest?base=EUR&symbols=USD,GBP", {
             status: 429,
             response: {},
