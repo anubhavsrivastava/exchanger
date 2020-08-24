@@ -10,7 +10,7 @@ const useWallet = () => {
     );
 
     const getWalletBalance = (currency: string): number => {
-        return wallet[currency] ? wallet[currency].value : 0;
+        return wallet[currency]?.value ?? 0;
     };
 
     return {

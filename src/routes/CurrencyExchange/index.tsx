@@ -85,7 +85,7 @@ const CurrencyExchange: FC = () => {
                 onCurrencyChange={updateSourceCurrency}
                 currentBalance={getWalletBalance(source.code)}
                 warnBalance={true}
-                prefix="plus"
+                prefix="minus"
             />
             <div className={exchangeStyles.panelSeperator}>
                 <div
@@ -114,7 +114,7 @@ const CurrencyExchange: FC = () => {
                 onAmountChange={updateTargetAmount}
                 onCurrencyChange={updateTargetCurrency}
                 color="grey"
-                prefix="minus"
+                prefix="plus"
             />
         </DefaultLayout>
     );
