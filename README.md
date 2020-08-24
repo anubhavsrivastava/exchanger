@@ -2,7 +2,7 @@
 
 A Currency Exchange demo app on typescript and react with hooks.
 
-Checkout the online [demo](exchangepoint.netlify.app)
+Checkout the online [demo](https://exchangepoint.netlify.app)
 
 [![Build Status](https://travis-ci.org/anubhavsrivastava/exchanger.svg?branch=master)](https://travis-ci.org/anubhavsrivastava/exchanger)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/anubhavsrivastava/exchanger/)
